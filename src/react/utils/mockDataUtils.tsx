@@ -5,10 +5,27 @@ import {
   FaInstagram,
   FaTelegram,
 } from "react-icons/fa";
-import { type PlatformId, type ChatDTO, ChatCategoryType } from '../features/Inbox/dtos/chatDtos';
+import { type PlatformId, type ChatDTO, ChatCategoryType } from '../features/dtos/chatDtos';
 
 interface PlatformIconProps {
   platformId: PlatformId;
+}
+
+export enum FunnelState {
+  New,
+  InProgress,
+  Completed
+}
+
+export const StateToFriendlyName = (state: FunnelState): string => {
+  switch (state) {
+    case FunnelState.InProgress:
+      return "In Progress";
+    case FunnelState.Completed:
+      return "Completed";
+    case FunnelState.New:
+      return "New"
+  }
 }
 
 export const PlatformIcon: React.FC<PlatformIconProps> = ({ platformId }) => {

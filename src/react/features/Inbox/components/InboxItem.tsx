@@ -2,7 +2,7 @@ import { Avatar, Tooltip, Button } from "@nextui-org/react";
 import { format } from "date-fns";
 import { RiChat3Line, RiUserLine, RiFlowChart } from "react-icons/ri";
 import { PlatformIcon } from "../../../utils/mockDataUtils";
-import type { ChatDTO } from "../dtos/chatDtos";
+import type { ChatDTO } from "../../dtos/chatDtos";
 
 interface ChatItemProps {
     chat: ChatDTO;
