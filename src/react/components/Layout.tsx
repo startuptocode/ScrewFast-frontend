@@ -7,7 +7,7 @@ import Navigationbar from './Navbar';
 
 const Layout: React.FC = () => {
     return (
-        <div className="dark flex flex-col min-h-screen">
+        <div className="light flex flex-col min-h-screen">
             {/* Navbar for tablet or smaller screens */}
             <div className="md:hidden">
                 <Navigationbar />
