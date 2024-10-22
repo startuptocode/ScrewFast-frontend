@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Tooltip, Button, Chip } from "@nextui-org/react";
 import { format } from "date-fns";
-import { RiChat3Line, RiUserLine, RiFlowChart } from "react-icons/ri";
+import { RiChat3Line, RiUserLine } from "react-icons/ri";
 import { FunnelState, PlatformIcon, StateToFriendlyName } from "../../../utils/mockDataUtils";
 import type { ChatDTO, PlatformId } from "../../dtos/chatDtos";
 import type { FC } from "react";
@@ -28,6 +28,7 @@ const FunnelItemHeader: FC<FunnelItemHeaderProps> = ({ title, createdAt, platfor
                     alt={chatName}
                     className="flex-shrink-0"
                     size="md"
+                    isBordered
                     src={chatImageUrl}
                 />
                 <span className="text-xl font-medium text-default-500 truncate">
@@ -64,7 +65,9 @@ interface FunnelItemFooterProps {
 }
 
 const FunnelItemFooter: FC<FunnelItemFooterProps> = ({ state, stateColor }) => {
+    const [isOpen, setIsOpen] = useState(false);
     return (
+        
         <div className="flex justify-between items-center bg-default-100 p-3 rounded-b-lg">
             <Chip
                 className={`text-white ${stateColor}`}

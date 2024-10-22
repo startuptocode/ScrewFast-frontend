@@ -10,10 +10,12 @@ interface ChatItemProps {
 
 const InboxItem: React.FC<ChatItemProps> = ({ chat }) => (
     <div className="flex items-start gap-2">
+
         <Avatar
             alt={chat.metadata.chatName}
             className="flex-shrink-0 mt-1"
             size="md"
+            isBordered
             src={chat.metadata.chatImageUrl}
         />
         <div className="flex flex-col flex-grow min-w-0 overflow-hidden">

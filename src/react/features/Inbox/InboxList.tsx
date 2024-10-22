@@ -1,18 +1,20 @@
-import type { FC, ReactNode } from "react";
-import { generateSampleChats } from "../../utils/mockDataUtils";
+import { type FC } from "react";
 import InboxItem from "./components/InboxItem";
 import ListLayout from "@/react/components/listLayout";
-
-
+import { useFunnelChats } from "@/react/hooks/useSampleChats";
 
 // InboxList component
 const InboxList = () => {
+    const { chats } = useFunnelChats({
+        initialCount: 5,
+        messagesPerChat: 3
+      });
     return (
         <ListLayout
             headerComponent={<HeaderInbox title="Inbox" />}
             listComponent={
-                <div className="space-y-12">
-                    {generateSampleChats(15).map((chat) => (
+                <div className="space-y-6">
+                    {chats.map((chat) => (
                         <InboxItem key={chat.id} chat={chat} />
                     ))}
                 </div>
