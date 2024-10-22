@@ -1,7 +1,10 @@
-import type { FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { FunnelState, generateSampleChats } from "../../utils/mockDataUtils";
 import FunnelListItem from "./components/funnelListItem";
 import ListLayout from "@/react/components/listLayout";
+import type { ChatDTO } from "../dtos/chatDtos";
+import { useFunnelChats } from "@/react/hooks/useSampleChats";
+import FunnelToolBar from "./components/funnelToolBar";
 
 const getRandomState = (): FunnelState => {
     const states = [FunnelState.New, FunnelState.InProgress, FunnelState.Completed];
@@ -20,12 +23,17 @@ interface FunnelListProps {
 
 
 const FunnelList: FC<FunnelListProps> = ({ title, count }) => {
+    const { chats, loading, error, refreshChats } = useFunnelChats({
+        initialCount: 5,
+        messagesPerChat: 3
+    });
+
     return (
         <ListLayout
             headerComponent={<HeaderInbox title={title} count={count} />}
             listComponent={
-                <div className="space-y-12">
-                    {generateSampleChats(15).map((chat) => (
+                <div className="space-y-2">
+                    {chats.map((chat) => (
                         <FunnelListItem
                             key={chat.id}
                             chat={chat}
@@ -40,27 +48,6 @@ const FunnelList: FC<FunnelListProps> = ({ title, count }) => {
 }
 export default FunnelList;
 
-/* const FunnelList: FC<FunnelListProps> = ({ title, count }) => {
-    return (
-        <div className=" space-y-4">
-            <HeaderInbox title={title} count={count} />
-            <div className="space-y-12">
-                {generateSampleChats(15).map((chat) => (
-                    <FunnelListItem
-                        key={chat.id}
-                        chat={chat}
-                        state={getRandomState()}
-                        stateColor={getRandomColor()}
-                    />
-                ))}
-            </div>
-        </div>
-
-    )
-}
-
-export default FunnelList; */
-
 interface HeaderInboxProps {
     title: string;
     count: number;
@@ -69,9 +56,13 @@ interface HeaderInboxProps {
 const HeaderInbox: FC<HeaderInboxProps> = ({ title, count }) => {
 
     return (
-        <div className="flex gap-x-1">
-            <h1 className="text-4xl font-thin text-default-900">{title}</h1>
-            <h1 className="font-bold text-lg  text-primary-400">45</h1>
+        <div className="flex justify-between items-center">
+            <div className="flex gap-x-1">
+                <h1 className="text-4xl font-thin text-default-900">{title}</h1>
+                <h1 className="font-bold text-lg  text-primary-400">{count}</h1>
+            </div>
+            <div><FunnelToolBar /></div>
         </div>
+
     )
 }

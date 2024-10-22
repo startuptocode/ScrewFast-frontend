@@ -70,12 +70,46 @@ const generateRandomMessage = (): string => {
     : longMessages[Math.floor(Math.random() * longMessages.length)];
 };
 
-export const generateSampleChats = (count: number): ChatDTO[] => {
+interface RandomUser {
+  picture: {
+    medium: string;
+  };
+  name: {
+    first: string;
+    last: string;
+  };
+  phone: string;
+}
+
+const fetchRandomUsers = async (count: number): Promise<RandomUser[]> => {
+  try {
+    const response = await fetch(`https://randomuser.me/api/?results=${count}`);
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('Error fetching random users:', error);
+    return [];
+  }
+};
+
+export const generateSampleChats = async (count: number): Promise<ChatDTO[]> => {
+  const users = await fetchRandomUsers(count);
   const chats: ChatDTO[] = [];
+
   for (let i = 0; i < count; i++) {
     const isGroup = Math.random() > 0.7;
-    const chatName = isGroup ? `Group ${i + 1}` : `Contact ${i + 1}`;
+    const user = users[i] || { 
+      picture: { medium: `https://api.dicebear.com/7.x/avataaars/svg?seed=${i}` },
+      name: { first: 'User', last: `${i + 1}` },
+      phone: `+1234567${i.toString().padStart(3, "0")}`
+    };
+    
+    const chatName = isGroup 
+      ? `Group ${i + 1}` 
+      : `${user.name.first} ${user.name.last}`;
+    
     const platform = generateRandomPlatform();
+    
     chats.push({
       id: `chat${i + 1}`,
       messages: [
@@ -86,7 +120,7 @@ export const generateSampleChats = (count: number): ChatDTO[] => {
             hubId: `hub${i + 1}`,
             platformId: platform,
             senderName: chatName,
-            senderPhoneNumber: `+1234567${i.toString().padStart(3, "0")}`,
+            senderPhoneNumber: user.phone,
             createdAt: new Date(
               Date.now() - Math.random() * 604800000
             ).toISOString(),
@@ -100,9 +134,7 @@ export const generateSampleChats = (count: number): ChatDTO[] => {
       metadata: {
         hubId: `hub${i + 1}`,
         platformId: platform,
-        chatImageUrl: `https://ui-avatars.com/api/?name=${encodeURIComponent(
-          chatName
-        )}&background=random`,
+        chatImageUrl: user.picture.medium,
         chatName: chatName,
         chatCategory: isGroup
           ? ChatCategoryType.Group
