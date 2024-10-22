@@ -83,16 +83,6 @@ const FunnelItemFooter: FC<FunnelItemFooterProps> = ({ state, stateColor }) => {
                         <RiUserLine size={16} />
                     </Button>
                 </Tooltip>
-                <Tooltip content="Send to Funnel">
-                    <Button
-                        size="sm"
-                        isIconOnly
-                        className="bg-primary text-white"
-                        variant="flat"
-                    >
-                        <RiFlowChart size={16} />
-                    </Button>
-                </Tooltip>
             </div>
         </div>
     );

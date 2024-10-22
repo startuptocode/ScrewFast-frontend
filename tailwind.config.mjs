@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import colors from 'tailwindcss/colors';
 const { nextui } = require("@nextui-org/react");
-import clerk from '@clerk/astro'
+const plugin = require('tailwindcss/plugin')
 
 export default {
   content: [
@@ -42,6 +42,22 @@ export default {
     require("tailwindcss/nesting"),
     require("preline/plugin"),
     require("@tailwindcss/forms"),
-    nextui()
+    nextui(),
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        '.scrollbar-thin': {
+          '&::-webkit-scrollbar': {
+            width: '4px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: 'rgb(209 213 219)',
+            borderRadius: '9999px',
+          },
+        }
+      })
+    })
   ],
 };

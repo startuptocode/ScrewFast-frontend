@@ -2,7 +2,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 
 const Header = () => {
     return (
-        <div>
+        <div className="p-4">
             <SignedOut>
                 <SignInButton />
             </SignedOut>

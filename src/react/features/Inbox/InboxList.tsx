@@ -1,22 +1,25 @@
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import { generateSampleChats } from "../../utils/mockDataUtils";
 import InboxItem from "./components/InboxItem";
+import ListLayout from "@/react/components/listLayout";
 
 
+
+// InboxList component
 const InboxList = () => {
     return (
-        <div className=" space-y-4">
-            <HeaderInbox title="Inbox" />
-            <div className="space-y-12">
-                {generateSampleChats(15).map((chat) => (
-                    <InboxItem key={chat.id} chat={chat} />
-                ))}
-            </div>
-        </div>
-
+        <ListLayout
+            headerComponent={<HeaderInbox title="Inbox" />}
+            listComponent={
+                <div className="space-y-12">
+                    {generateSampleChats(15).map((chat) => (
+                        <InboxItem key={chat.id} chat={chat} />
+                    ))}
+                </div>
+            }
+        />
     )
 }
-
 export default InboxList;
 
 interface HeaderInboxProps {

@@ -7,30 +7,28 @@ import Navigationbar from './Navbar';
 
 const Layout: React.FC = () => {
     return (
-        <div className="light flex flex-col min-h-screen">
+        <div className="light flex flex-col h-screen">
             {/* Navbar for tablet or smaller screens */}
             <div className="md:hidden">
                 <Navigationbar />
             </div>
 
-            <div className="flex flex-1">
+            <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar for desktop */}
                 <div className="hidden md:block">
                     <Sidebar />
                 </div>
 
-                <main className="flex-1 bg-default-50 flex flex-col h-screen p-4 overflow-auto">
-                    <header className='hidden md:flex justify-end mb-4'>
+                <main className="flex-1 bg-default-50 flex flex-col ">
+                    <header className=' md:flex justify-end'>
                         <Header />
                     </header>
-
-                    {/* Main content area */}
-                    <div className="flex-1">
+                    <div className="flex-1 overflow-hidden">
                         <Outlet />
                     </div>
 
                     {/* Footer only visible on desktop */}
-                    <footer className="hidden md:block mt-4">
+                    <footer className="hidden md:block justify-center">
                         <Footer />
                     </footer>
                 </main>
