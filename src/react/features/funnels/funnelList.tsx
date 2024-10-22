@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { FunnelState, generateSampleChats } from "../../utils/mockDataUtils";
 import FunnelListItem from "./components/funnelListItem";
+import ListLayout from "@/react/components/listLayout";
 
 const getRandomState = (): FunnelState => {
     const states = [FunnelState.New, FunnelState.InProgress, FunnelState.Completed];
@@ -9,7 +10,7 @@ const getRandomState = (): FunnelState => {
 
 const getRandomColor = (): string => {
     const colors = ['bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500', 'bg-purple-500'];
-    return colors[Math.floor(Math.random() * colors.length-1)];
+    return colors[Math.floor(Math.random() * colors.length - 1)];
 };
 
 interface FunnelListProps {
@@ -17,7 +18,29 @@ interface FunnelListProps {
     count: number
 }
 
+
 const FunnelList: FC<FunnelListProps> = ({ title, count }) => {
+    return (
+        <ListLayout
+            headerComponent={<HeaderInbox title={title} count={count} />}
+            listComponent={
+                <div className="space-y-12">
+                    {generateSampleChats(15).map((chat) => (
+                        <FunnelListItem
+                            key={chat.id}
+                            chat={chat}
+                            state={getRandomState()}
+                            stateColor={getRandomColor()}
+                        />
+                    ))}
+                </div>
+            }
+        />
+    )
+}
+export default FunnelList;
+
+/* const FunnelList: FC<FunnelListProps> = ({ title, count }) => {
     return (
         <div className=" space-y-4">
             <HeaderInbox title={title} count={count} />
@@ -36,7 +59,7 @@ const FunnelList: FC<FunnelListProps> = ({ title, count }) => {
     )
 }
 
-export default FunnelList;
+export default FunnelList; */
 
 interface HeaderInboxProps {
     title: string;

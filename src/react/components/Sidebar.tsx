@@ -8,16 +8,17 @@ const MenuItem: FC<MenuItemProps> = ({ item }) => {
     return (
         <li>
             <Tooltip content={item.label}>
-            <Button
-            as={Link}
-                isIconOnly
-                size="md"
-                variant="light"
-                href={item.href}
-                to={item.href}
-            >
-                {item.Icon}
-            </Button>
+                <Button
+                    as={Link}
+                    isIconOnly
+                    size="md"
+                    variant="light"
+                    href={item.href}
+                    to={item.href}
+                    className="text-white"
+                >
+                    {item.Icon}
+                </Button>
             </Tooltip>
         </li>
     )
@@ -28,12 +29,12 @@ const Sidebar: FC = () => {
     const footerMenuItems = menuItems.filter(item => item.isFooter);
 
     return (
-        <nav className="bg-default-100 h-screen w-16 flex flex-col justify-between py-4">
+        <nav className="bg-secondary h-screen w-16 flex flex-col justify-between py-4">
             {/* Top section for app icon */}
             <div className="flex justify-center">
                 <Button isIconOnly size="lg" variant="light">
                     {/* Replace with your app icon */}
-                    <svg className="w-8 h-8 text-default-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                 </Button>
