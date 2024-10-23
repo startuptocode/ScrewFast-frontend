@@ -6,7 +6,7 @@
   "btnText": "Get a Custom Quote",
   "starterKit": {
     "name": "Initial Plan",
-    "description": "For 7 days, and then $83.99 USD per month",
+    "description": "For 7 days, and then $89.99 USD per month",
     "price": "7",
     "cents": ".99",
     "billingFrequency": "USD / monthly",

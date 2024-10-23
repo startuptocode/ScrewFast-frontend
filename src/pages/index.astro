@@ -13,8 +13,14 @@ import featureImage from "@images/features-image.avif";
 import construction from "@images/construction-image.avif";
 import tools from "@images/automated-tools.avif";
 import dashboard from "@images/dashboard-image.avif";
-import bulkmessages from "@images/bulk-messages.png"
-const promoSource ="/media/video_promotion.mp4";
+import bulkmessages from "@images/bulk-messages.png";
+import AnnouncementBanner from "@/components/ui/banners/AnnouncementBanner.astro";
+import ClientsSection from "@/components/sections/landing/ClientsSection.astro";
+import TestimonialsSection from "@/components/sections/testimonials/TestimonialsSection.astro";
+import FAQ from "@/components/sections/misc/FAQ.astro";
+import faqs from "@data/faqs.json";
+
+const promoSource = "/media/video_promotion.mp4";
 
 const avatarSrcs: Array<string> = [
   "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
@@ -30,7 +36,7 @@ const avatarSrcs: Array<string> = [
         class="text-yellow-500 dark:text-yellow-400">Kasumi CRM</span>`
     subTitle="Centralize your chats into columns, automatically assign them to your sales and customer support teams 🚀."
     primaryBtn="Start Exploring"
-    primaryBtnURL="/products"
+    primaryBtnURL="#demo-video"
     secondaryBtn="View Demo"
     secondaryBtnURL="/contact"
     withReview={false}
@@ -42,14 +48,19 @@ const avatarSrcs: Array<string> = [
     alt="Kasumi CRM a CRM for Whatsapp, Instagram and more..."
   />
 
-  <video 
-  src={promoSource} 
-  muted 
-  autoplay 
-  loop 
-  playsinline 
-  controls
-></video>
+  <script>
+    window.addEventListener('hashchange', () => {
+    if (window.location.hash === '#demo-video') {
+      const video = document.querySelector('#demo-video');
+      video?.scrollIntoView({ behavior: 'smooth' });
+      if (video instanceof HTMLVideoElement) {
+        video.play();
+      }
+    }
+  });
+  </script>
+
+  <video id="demo-video" src={promoSource} muted loop playsinline controls></video>
   <FeaturesGeneral
     title="Discover the benefits that Kasumi offers you!"
     subTitle="Streamline your customer communication with our all-in-one messaging CRM. Seamlessly manage conversations across WhatsApp, Facebook, and Instagram from a single, intuitive platform. Our powerful tool helps you build stronger relationships, boost engagement, and drive sales by centralizing your social messaging channels."
@@ -88,7 +99,8 @@ const avatarSrcs: Array<string> = [
       },
       {
         heading: "Smart Funnel Management",
-        content: "Create custom funnels to track, organize, and optimize your customer journey from first contact to closing.",
+        content:
+          "Create custom funnels to track, organize, and optimize your customer journey from first contact to closing.",
         svg: "house",
         src: construction,
         alt: "Graphic representing custom sales funnels",
@@ -96,6 +108,48 @@ const avatarSrcs: Array<string> = [
     ]}
   />
 
+  <TestimonialsSection
+    title="Transform Your Customer Communication"
+    subTitle="Join thousands of businesses using Kasumi CRM to connect with customers across all platforms"
+    testimonials={[
+      {
+        content:
+          "The broadcast feature alone saved us countless hours. One message, all platforms - it's that simple. Our engagement rates increased by 150% since we started using Kasumi CRM. The analytics help us understand exactly when and how to reach our audience.",
+        author: "David Chen",
+        role: "Marketing Manager",
+        avatarSrc:
+          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+      },
+      {
+        content:
+          "The integration was seamless. Our sales team now manages all customer conversations from a single dashboard. Lead response time improved by 80%, and our conversion rate has never been better. Kasumi CRM is worth every penny.",
+        author: "Sarah Thompson",
+        role: "Sales Director",
+        avatarSrc:
+          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+      },
+    ]}
+    statistics={[
+      {
+        count: "500k+",
+        description: "messages sent daily through our unified platform",
+      },
+      {
+        count: "67%",
+        description: "average reduction in response time reported by clients",
+      },
+      {
+        count: "89%",
+        description:
+          "customer satisfaction rate across all communication channels",
+      },
+      {
+        count: "3x",
+        description: "faster customer engagement with unified inbox",
+      },
+    ]}
+  />
+  <FAQ title="Frequently<br />asked questions" faqs={faqs} />
   <PricingSection pricing={pricing} />
 
   <HeroSectionAlt
