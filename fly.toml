@@ -1,15 +1,15 @@
-# fly.toml app configuration file generated for kasumi-dev on 2024-10-20T14:29:29+09:00
+# fly.toml app configuration file generated for kasumi-dev-ancient-river-8990 on 2024-10-23T17:15:29+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'kasumi-dev'
+app = 'kasumi-dev-ancient-river-8990'
 primary_region = 'qro'
 
 [build]
 
 [http_service]
-  internal_port = 80
+  internal_port = 4321
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
