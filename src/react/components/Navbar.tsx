@@ -1,6 +1,6 @@
 import { NavbarBrand, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Navbar } from "@nextui-org/react";
 import Header from "./Header";
-import { menuItems } from "../utils/menuUtils";
+import { getSidebarItems } from "../utils/menuUtils";
 import { Link } from "react-router-dom";
 
 const Navigationbar = () => {
@@ -24,7 +24,7 @@ const Navigationbar = () => {
 
                 {/* Mobile Menu */}
                 <NavbarMenu>
-                    {menuItems.map(item => (<div>
+                    {getSidebarItems().map(item => (<div>
                         <NavbarMenuItem key={item.key}>
                             <Link
                                 className="w-full flex items-center gap-2"

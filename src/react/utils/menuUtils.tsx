@@ -9,23 +9,33 @@ import Home from "../pages/home";
 import Hubs from "../pages/hubs";
 import Funnels from "../pages/funnels";
 import Bulk from "../pages/bulk";
+import Chat from "../pages/chat";
 
 const iconSize = 28;
 
-export interface MenuItemProps {
-    item: MenuItemType
+export interface IBaseRoute {
+    key: string;
+    label: string;
+    href: string;
+    element?: ReactNode;
 }
 
-export type MenuItemType = {
-    key: string,
-    label: string,
-    Icon: ReactNode,
-    href: string,
-    isFooter: boolean,
-    element: ReactNode  // Nuevo campo para el componente de la página
+export interface ISidebarItem extends IBaseRoute {
+    Icon: ReactNode;
+    isFooter: boolean;
 }
 
-export const menuItems: MenuItemType[] = [
+
+export type RouteItem = IBaseRoute | ISidebarItem;
+
+
+export const isSidebarItem = (item: RouteItem): item is ISidebarItem => {
+    return 'Icon' in item;
+};
+
+
+export const routes: RouteItem[] = [
+    // Items del Sidebar (menuItems)
     {
         key: 'home',
         label: 'Home',
@@ -64,7 +74,7 @@ export const menuItems: MenuItemType[] = [
         Icon: <IoMdContrast size={iconSize}/>,
         href: '#',
         isFooter: true,
-        element: null  // No tiene una página asociada
+        element: null
     },
     {
         key: 'change-language',
@@ -72,6 +82,25 @@ export const menuItems: MenuItemType[] = [
         Icon: <MdOutlineLanguage size={iconSize}/>,
         href: '#',
         isFooter: true,
-        element: null  // No tiene una página asociada
+        element: null
+    },
+    // (routeItems)
+    {
+        key: 'chat',
+        label: 'Chat Panel',
+        href: '/app/chat',
+        element: <Chat />
     }
 ];
+
+export const getSidebarItems = (): ISidebarItem[] => 
+    routes.filter(isSidebarItem);
+
+export const getMainMenuItems = (): ISidebarItem[] => 
+    getSidebarItems().filter(item => !item.isFooter);
+
+export const getFooterItems = (): ISidebarItem[] => 
+    getSidebarItems().filter(item => item.isFooter);
+
+export const getNonSidebarRoutes = (): IBaseRoute[] => 
+    routes.filter(item => !isSidebarItem(item));
