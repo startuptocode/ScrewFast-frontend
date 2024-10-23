@@ -71,7 +71,6 @@ const FunnelItemFooter: FC<FunnelItemFooterProps> = ({ state, stateColor }) => {
         <div className="flex justify-between items-center bg-default-100 p-3 rounded-b-lg">
             <Chip
                 className={`text-white ${stateColor}`}
-                variant="solid"
             >
                 {StateToFriendlyName(state)}
             </Chip>
