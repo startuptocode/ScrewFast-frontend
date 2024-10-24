@@ -121,4 +121,20 @@ export default defineConfig({
   },
   adapter: node({ mode: 'standalone' }),
   output: 'server',
+  vite: {
+    ssr: {
+      noExternal: ['@microsoft/*'],
+    },
+    optimizeDeps: {
+      include: [
+        '@microsoft/kiota-abstractions',
+        '@microsoft/kiota-http-fetchlibrary',
+        '@microsoft/kiota-serialization-json',
+        '@microsoft/kiota-serialization-text'
+      ]
+    },
+    resolve: {
+      dedupe: ['@microsoft/kiota-abstractions']
+    }
+  }
 });
